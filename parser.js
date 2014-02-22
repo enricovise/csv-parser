@@ -31,6 +31,20 @@ Token.prototype.asDate = function()
 };
 
 
+
+function Row(aString)
+{
+	this.value = aString;
+	this.normalize();
+}
+
+Row.prototype.normalize = function()
+{
+	this.value += (this.value.match(/\n$/) ? "" : "\n");
+};
+
+
+
 function CSVParser(aString)
 {
 	this.initialize(aString);
@@ -52,14 +66,9 @@ CSVParser.prototype.gotoToken = function(anInteger)
 	}
 };
 
-CSVParser.prototype.provideNewline = function(aString)
-{
-	return aString + (aString.match(/\n$/) ? "" : "\n");
-};
-
 CSVParser.prototype.nextRow = function()
 {
-	this.row = this.provideNewline(this.rowPattern.exec(this.file)[0]);
+	this.row = new Row(this.rowPattern.exec(this.file)[0]);
 	this.pattern.lastIndex = 0;
 };
 
@@ -74,14 +83,16 @@ CSVParser.prototype.hasNextRow = function()
 CSVParser.prototype.hasNextToken = function()
 {
 	var lastIndexBackup = this.pattern.lastIndex;
-	var found = this.pattern.test(this.row);
+	var found = this.pattern.test(this.row.value);
 	this.pattern.lastIndex = lastIndexBackup;
 	return found;
 };
 
 CSVParser.prototype.nextToken = function()
 {
-	this.token = new Token(this.pattern.exec(this.row)[1]);
+	// var result = this.pattern.exec(this.row.value);
+	// alert("0:" + result[0] + "\n1:" + result[1] + "\n2:" + result[2]);
+	this.token = new Token(this.pattern.exec(this.row.value)[1]);
 };
 
 CSVParser.prototype.openFile = function(aString)
