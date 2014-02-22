@@ -3,6 +3,26 @@
 function Token(aString)
 {
 	this.value = aString;
+
+	this.asString = function()
+	{
+		return this.value;
+	};
+
+	this.asInteger = function()
+	{
+		return parseInt(this.value, 10);
+	};
+
+	this.asDouble = function()
+	{
+		return parseFloat(this.value);
+	};
+
+	this.asDate = function()
+	{
+		return new Date(this.value);
+	};
 }
 
 function CSVParser(aString)

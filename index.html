@@ -53,12 +53,11 @@
 
 	  function GetValue()
 	  {
-        alert("Row [" + document.getElementById("row").value + "]");
 	    var pippo = new CSVParser();
         pippo.gotoRow(document.getElementById("row").value);
         pippo.gotoToken(document.getElementById("column").value);
         alert("{" + pippo.row + "}");
-        alert("[" + pippo.token.value + "]");
+        alert("[" + pippo.token.asDate() + "]");
         /*
 	    while (pippo.hasNextLine())
 	    {
