@@ -100,11 +100,11 @@ CSVParser.prototype.getRowPattern = function()
 
 CSVParser.prototype.getTokenPattern = function()
 {
-	var unquoted = "([^\"]*?)";
+	var unquoted = "[^\"]*?";
 	var even_number_of_quotes = "(?:\"\")*";
-	var quoted = "\"(" + ".*?[^\"]" + even_number_of_quotes + ")\"";
+	var quoted = "\"" + ".*?[^\"]" + even_number_of_quotes + "\"";
 	var tail = "(?:\n|" + this.separator + ")";
-	return "(?:" + unquoted + "|" + quoted + ")" + tail;
+	return "(" + unquoted + "|" + quoted + ")" + tail;
 };
 
 CSVParser.prototype.initialize = function(aString)
