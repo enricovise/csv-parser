@@ -7,31 +7,31 @@ function CSVParser(aString)
 		return aString + (aString.match(/\n$/) ? "" : "\n");
     };
 
-	this.nextLine = function()
+	this.nextRow = function()
 	{
-		this.line = this.provideNewline(this.linePattern.exec(this.file)[0]);
+		this.row = this.provideNewline(this.rowPattern.exec(this.file)[0]);
 		this.pattern.lastIndex = 0;
 	};
 
-	this.hasNextLine = function()
+	this.hasNextRow = function()
 	{
-		var lastIndexBackup = this.linePattern.lastIndex;
-		var line = this.linePattern.exec(this.file)[0];
-		this.linePattern.lastIndex = lastIndexBackup;
-		return line != "";
+		var lastIndexBackup = this.rowPattern.lastIndex;
+		var row = this.rowPattern.exec(this.file)[0];
+		this.rowPattern.lastIndex = lastIndexBackup;
+		return row != "";
 	};
 
 	this.hasNextToken = function()
 	{
 		var lastIndexBackup = this.pattern.lastIndex;
-		var found = this.pattern.test(this.line);
+		var found = this.pattern.test(this.row);
 		this.pattern.lastIndex = lastIndexBackup;
 		return found;
 	};
 
 	this.nextToken = function()
 	{
-		var result  = this.pattern.exec(this.line);
+		var result  = this.pattern.exec(this.row);
 		this.token = result[2] || result[1];
 	};
 
@@ -45,7 +45,7 @@ function CSVParser(aString)
 		return ";";
 	};
 
-	this.getLinePattern = function()
+	this.getRowPattern = function()
 	{
 		return ".*\n?";
 	};
@@ -63,7 +63,7 @@ function CSVParser(aString)
 	{
 		this.separator = this.getSeparator();
 		this.pattern = new RegExp(this.getTokenPattern(), "g");
-		this.linePattern = new RegExp(this.getLinePattern(), "g");
+		this.rowPattern = new RegExp(this.getRowPattern(), "g");
 		this.openFile(aString);
 	};
 	
