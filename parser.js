@@ -102,17 +102,22 @@ CSVParser.prototype.gotoRow = function(anInteger)
 	}
 };
 
+CSVParser.prototype.getNextRow = function()
+{
+	return new Row(this.pattern.exec(this.file)[0], this.separator);
+};
+
 CSVParser.prototype.nextRow = function()
 {
-	this.row = new Row(this.pattern.exec(this.file)[0], this.separator);
+	this.row = this.getNextRow();
 };
 
 CSVParser.prototype.hasNextRow = function()
 {
 	var lastIndexBackup = this.pattern.lastIndex;
-	var row = this.pattern.exec(this.file)[0];
+	var row = this.getNextRow();
 	this.pattern.lastIndex = lastIndexBackup;
-	return row != "";
+	return row.value != "";
 };
 
 CSVParser.prototype.openFile = function(aString)
