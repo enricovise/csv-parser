@@ -39,7 +39,7 @@ Token.getPattern = function(aString)
 	var even_number_of_quotes = "(?:\"\")*";
 	var quoted = "\"" + ".*?[^\"]" + even_number_of_quotes + "\"";
 	var tail = "(?:\n|" + aString + ")";
-	return "(" + unquoted + "|" + quoted + ")" + tail;
+	return new RegExp("(" + unquoted + "|" + quoted + ")" + tail, "g");
 };
 
 
@@ -134,7 +134,7 @@ CSVParser.prototype.getTokenPattern = function()
 CSVParser.prototype.initialize = function(aString)
 {
 	this.separator = this.getSeparator();
-	this.pattern = new RegExp(Token.getPattern(this.separator), "g");
+	this.pattern = Token.getPattern(this.separator);
 	this.rowPattern = new RegExp(this.getRowPattern(), "g");
 	this.openFile(aString);
 };
