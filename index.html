@@ -19,8 +19,8 @@
 	<section>
 	  <pre id="text">None.</pre>
 	  <form>
-		Please specify row <input type="text" name="row" />
-		and column <input type="text" name="column" />.
+		Please specify row <input type="text" id="row" />
+		and column <input type="text" id="column" />.
 		Then <input type="button" value="Get" onclick="GetValue();" />.
 	  </form>
 	</section>
@@ -53,7 +53,11 @@
 
 	  function GetValue()
 	  {
+        alert("Row [" + document.getElementById("row").value + "]");
 	    var pippo = new CSVParser();
+        pippo.gotoRow(document.getElementById("row").value);
+        alert("{" + pippo.row + "}");
+        /*
 	    while (pippo.hasNextLine())
 	    {
 	      pippo.nextLine();
@@ -64,8 +68,8 @@
             alert("[" + pippo.token + "]");
 	      }
 	    }
+        */
 	  }
 	</script>
   </body>
 </html>
-  

@@ -2,6 +2,14 @@
 
 function CSVParser(aString)
 {
+	this.gotoRow = function(anInteger)
+	{
+		for (var i = 0; i <= anInteger && this.hasNextRow(); i++)
+		{
+			this.nextRow();
+        }
+	};
+	
 	this.provideNewline = function(aString)
 	{
 		return aString + (aString.match(/\n$/) ? "" : "\n");
