@@ -33,6 +33,17 @@ Token.prototype.asDate = function()
 	return new Date(this.value);
 };
 
+Token.getPattern = function(aString)
+{
+	var unquoted = "[^\"]*?";
+	var even_number_of_quotes = "(?:\"\")*";
+	var quoted = "\"" + ".*?[^\"]" + even_number_of_quotes + "\"";
+	var tail = "(?:\n|" + aString + ")";
+	return "(" + unquoted + "|" + quoted + ")" + tail;
+};
+
+
+
 
 
 function Row(aString)
@@ -123,7 +134,7 @@ CSVParser.prototype.getTokenPattern = function()
 CSVParser.prototype.initialize = function(aString)
 {
 	this.separator = this.getSeparator();
-	this.pattern = new RegExp(this.getTokenPattern(), "g");
+	this.pattern = new RegExp(Token.getPattern(this.separator), "g");
 	this.rowPattern = new RegExp(this.getRowPattern(), "g");
 	this.openFile(aString);
 };
