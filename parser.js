@@ -57,6 +57,11 @@ Row.prototype.normalize = function()
 	this.value += (this.value.match(/\n$/) ? "" : "\n");
 };
 
+Row.getPattern = function()
+{
+	return new RegExp(".*\n?", "g");
+};
+
 
 
 function CSVParser(aString)
@@ -117,25 +122,11 @@ CSVParser.prototype.getSeparator = function()
 	return ";";
 };
 
-CSVParser.prototype.getRowPattern = function()
-{
-	return ".*\n?";
-};
-
-CSVParser.prototype.getTokenPattern = function()
-{
-	var unquoted = "[^\"]*?";
-	var even_number_of_quotes = "(?:\"\")*";
-	var quoted = "\"" + ".*?[^\"]" + even_number_of_quotes + "\"";
-	var tail = "(?:\n|" + this.separator + ")";
-	return "(" + unquoted + "|" + quoted + ")" + tail;
-};
-
 CSVParser.prototype.initialize = function(aString)
 {
 	this.separator = this.getSeparator();
 	this.pattern = Token.getPattern(this.separator);
-	this.rowPattern = new RegExp(this.getRowPattern(), "g");
+	this.rowPattern = Row.getPattern();
 	this.openFile(aString);
 };
 
