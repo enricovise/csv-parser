@@ -64,6 +64,7 @@ Row.getPattern = function()
 
 
 
+
 function CSVParser(aString)
 {
 	this.initialize(aString);
@@ -74,14 +75,6 @@ CSVParser.prototype.gotoRow = function(anInteger)
 	for (var i = 0; i <= anInteger && this.hasNextRow(); i++)
 	{
 		this.nextRow();
-	}
-};
-
-CSVParser.prototype.gotoToken = function(anInteger)
-{
-	for (var i = 0; i <= anInteger && this.hasNextToken(); i++)
-	{
-		this.nextToken();
 	}
 };
 
@@ -97,6 +90,14 @@ CSVParser.prototype.hasNextRow = function()
 	var row = this.rowPattern.exec(this.file)[0];
 	this.rowPattern.lastIndex = lastIndexBackup;
 	return row != "";
+};
+
+CSVParser.prototype.gotoToken = function(anInteger)
+{
+	for (var i = 0; i <= anInteger && this.hasNextToken(); i++)
+	{
+		this.nextToken();
+	}
 };
 
 CSVParser.prototype.hasNextToken = function()
