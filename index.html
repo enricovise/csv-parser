@@ -58,7 +58,7 @@
         pippo.gotoRow(document.getElementById("row").value);
         pippo.gotoToken(document.getElementById("column").value);
         alert("{" + pippo.row + "}");
-        alert("[" + pippo.token + "]");
+        alert("[" + pippo.token.value + "]");
         /*
 	    while (pippo.hasNextLine())
 	    {
@@ -67,7 +67,7 @@
 	      while (pippo.hasNextToken())
 	      {
 	        pippo.nextToken();
-            alert("[" + pippo.token + "]");
+            alert("[" + pippo.token.value + "]");
 	      }
 	    }
         */

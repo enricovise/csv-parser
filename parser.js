@@ -1,5 +1,10 @@
 /*global Clib, TheApplication(), ToNumber */
 
+function Token(aString)
+{
+	this.value = aString;
+}
+
 function CSVParser(aString)
 {
 	this.gotoRow = function(anInteger)
@@ -48,7 +53,7 @@ function CSVParser(aString)
 	this.nextToken = function()
 	{
 		var result  = this.pattern.exec(this.row);
-		this.token = result[2] || result[1];
+		this.token = new Token(result[2] || result[1]);
 	};
 
 	this.openFile = function(aString)
