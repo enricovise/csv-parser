@@ -1,5 +1,3 @@
-/*global Clib, TheApplication(), ToNumber */
-
 function Token(aString)
 {
 	this.value = aString;
@@ -51,6 +49,11 @@ CSVParser.prototype.provideNewline = function(aString)
 {
 	return aString + (aString.match(/\n$/) ? "" : "\n");
 };
+
+CSVParser.prototype.pippo = function(aString)
+{
+	return aString.replace(/""/g, "\"");
+}
 
 CSVParser.prototype.nextRow = function()
 {

@@ -25,6 +25,7 @@
 	  </form>
 	</section>
 	<section>
+      <pre id="token">None.</pre>
 	</section>
 
 	<script>
@@ -53,23 +54,10 @@
 
 	  function GetValue()
 	  {
-	    var pippo = new CSVParser();
-        pippo.gotoRow(document.getElementById("row").value);
-        pippo.gotoToken(document.getElementById("column").value);
-        alert("{" + pippo.row + "}");
-        alert("[" + pippo.token.asDate() + "]");
-        /*
-	    while (pippo.hasNextLine())
-	    {
-	      pippo.nextLine();
-	      alert(pippo.line);
-	      while (pippo.hasNextToken())
-	      {
-	        pippo.nextToken();
-            alert("[" + pippo.token.value + "]");
-	      }
-	    }
-        */
+	    var parser = new CSVParser();
+        parser.gotoRow(document.getElementById("row").value);
+        parser.gotoToken(document.getElementById("column").value);
+        document.getElementById('token').innerHTML = parser.token.asString();
 	  }
 	</script>
   </body>
