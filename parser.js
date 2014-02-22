@@ -104,14 +104,14 @@ CSVParser.prototype.gotoRow = function(anInteger)
 
 CSVParser.prototype.nextRow = function()
 {
-	this.row = new Row(this.rowPattern.exec(this.file)[0], this.separator);
+	this.row = new Row(this.pattern.exec(this.file)[0], this.separator);
 };
 
 CSVParser.prototype.hasNextRow = function()
 {
-	var lastIndexBackup = this.rowPattern.lastIndex;
-	var row = this.rowPattern.exec(this.file)[0];
-	this.rowPattern.lastIndex = lastIndexBackup;
+	var lastIndexBackup = this.pattern.lastIndex;
+	var row = this.pattern.exec(this.file)[0];
+	this.pattern.lastIndex = lastIndexBackup;
 	return row != "";
 };
 
@@ -128,7 +128,7 @@ CSVParser.prototype.getSeparator = function()
 CSVParser.prototype.initialize = function(aString)
 {
 	this.separator = this.getSeparator();
-	this.rowPattern = Row.getPattern();
+	this.pattern = Row.getPattern();
 	this.openFile(aString);
 };
 
