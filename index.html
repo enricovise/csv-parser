@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <header>
+	<title>Parser</title>
+	<meta charset="UTF-8" />
+	<style>
+	   pre {
+	     padding: 1em;
+	     background: #EBF4FA;
+	   }
+	</style>
+	<script src="parser.js"></script>
+  </header>
+  <body>
+	<h1>Test</h1>
+	<section>
+	  <input type="file" id="files" name="files[]" />
+	</section>
+	<section>
+	  <pre id="text">None.</pre>
+	  <form>
+		Please specify row <input type="text" name="row" />
+		and column <input type="text" name="column" />.
+		Then <input type="button" value="Get" onclick="GetValue();" />.
+	  </form>
+	</section>
+	<section>
+	</section>
+
+	<script>
+	  if (!(window.File && window.FileReader && window.FileList && window.Blob))
+	  {
+	    document.getElementById('text').innerHTML =
+	                  'The File APIs are not fully supported in this browser.';
+	    document.getElementById('files').disabled = true;
+	  }
+	  else
+	  {
+	    document.getElementById('files').disabled = false;
+	    function handleFileSelect(event)
+	    {
+          var reader = new FileReader();
+          reader.onload = function(e)
+          {
+            document.getElementById('text').innerHTML = e.target.result;
+          };
+          reader.readAsText(event.target.files[0]);
+	    }
+
+	    document.getElementById('files').addEventListener('change',
+	                                                  handleFileSelect, false);
+	  }
+
+	  function GetValue()
+	  {
+	    var pippo = new CSVParser();
+	    while (pippo.hasNextLine())
+	    {
+	      pippo.nextLine();
+	      alert(pippo.line);
+	      while (pippo.hasNextToken())
+	      {
+	        pippo.nextToken();
+            alert("[" + pippo.token + "]");
+	      }
+	    }
+	  }
+	</script>
+  </body>
+</html>
+  
