@@ -6,8 +6,11 @@ function Token(aString)
 
 Token.prototype.normalize = function()
 {
-	this.value = ("\"" + this.value + "\"").replace(/""/g, "\"").match(
-			                                                      /"(.*)"/)[1];
+	if (this.value)
+	{
+		this.value = ("\"" + this.value + "\"").replace(/""/g, "\"").match(
+		                                                           /"(.*)"/)[1];
+    }
 };
 
 Token.prototype.asString = function()
@@ -90,8 +93,6 @@ CSVParser.prototype.hasNextToken = function()
 
 CSVParser.prototype.nextToken = function()
 {
-	// var result = this.pattern.exec(this.row.value);
-	// alert("0:" + result[0] + "\n1:" + result[1] + "\n2:" + result[2]);
 	this.token = new Token(this.pattern.exec(this.row.value)[1]);
 };
 

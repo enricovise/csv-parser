@@ -4,10 +4,20 @@
 	<title>Parser</title>
 	<meta charset="UTF-8" />
 	<style>
-	   pre {
-	     padding: 1em;
-	     background: #EBF4FA;
-	   }
+	  pre {
+	    padding: 1em;
+	    background: #EBF4FA;
+	  }
+
+      #token:before {
+        color: blue;
+        content: "[";
+      }
+
+      #token:after {
+        color: red;
+        content: "]";
+      }
 	</style>
 	<script src="parser.js"></script>
   </header>
@@ -25,7 +35,7 @@
 	  </form>
 	</section>
 	<section>
-      [<span id="token">None.</span>]
+      <pre id="token">None.</pre>
 	</section>
 
 	<script>
