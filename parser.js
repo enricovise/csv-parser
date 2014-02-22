@@ -46,10 +46,11 @@ Token.getPattern = function(aString)
 
 
 
-function Row(aString)
+function Row(valueString, separatorString)
 {
-	this.value = aString;
+	this.value = valueString;
 	this.normalize();
+	this.pattern = Token.getPattern(separatorString);
 }
 
 Row.prototype.normalize = function()
@@ -57,10 +58,33 @@ Row.prototype.normalize = function()
 	this.value += (this.value.match(/\n$/) ? "" : "\n");
 };
 
+Row.prototype.gotoToken = function(anInteger)
+{
+	for (var i = 0; i <= anInteger && this.hasNextToken(); i++)
+	{
+		this.nextToken();
+	}
+};
+
+Row.prototype.hasNextToken = function()
+{
+	var lastIndexBackup = this.pattern.lastIndex;
+	var found = this.pattern.test(this.value);
+	this.pattern.lastIndex = lastIndexBackup;
+	return found;
+};
+
+Row.prototype.nextToken = function()
+{
+	this.token = new Token(this.pattern.exec(this.value)[1]);
+};
+
 Row.getPattern = function()
 {
 	return new RegExp(".*\n?", "g");
 };
+
+
 
 
 
@@ -80,8 +104,7 @@ CSVParser.prototype.gotoRow = function(anInteger)
 
 CSVParser.prototype.nextRow = function()
 {
-	this.row = new Row(this.rowPattern.exec(this.file)[0]);
-	this.pattern.lastIndex = 0;
+	this.row = new Row(this.rowPattern.exec(this.file)[0], this.separator);
 };
 
 CSVParser.prototype.hasNextRow = function()
@@ -90,27 +113,6 @@ CSVParser.prototype.hasNextRow = function()
 	var row = this.rowPattern.exec(this.file)[0];
 	this.rowPattern.lastIndex = lastIndexBackup;
 	return row != "";
-};
-
-CSVParser.prototype.gotoToken = function(anInteger)
-{
-	for (var i = 0; i <= anInteger && this.hasNextToken(); i++)
-	{
-		this.nextToken();
-	}
-};
-
-CSVParser.prototype.hasNextToken = function()
-{
-	var lastIndexBackup = this.pattern.lastIndex;
-	var found = this.pattern.test(this.row.value);
-	this.pattern.lastIndex = lastIndexBackup;
-	return found;
-};
-
-CSVParser.prototype.nextToken = function()
-{
-	this.token = new Token(this.pattern.exec(this.row.value)[1]);
 };
 
 CSVParser.prototype.openFile = function(aString)
@@ -126,7 +128,6 @@ CSVParser.prototype.getSeparator = function()
 CSVParser.prototype.initialize = function(aString)
 {
 	this.separator = this.getSeparator();
-	this.pattern = Token.getPattern(this.separator);
 	this.rowPattern = Row.getPattern();
 	this.openFile(aString);
 };

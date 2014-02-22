@@ -66,8 +66,8 @@
 	  {
 	    var parser = new CSVParser();
         parser.gotoRow(document.getElementById("row").value);
-        parser.gotoToken(document.getElementById("column").value);
-        document.getElementById('token').innerHTML = parser.token.asString();
+        parser.row.gotoToken(document.getElementById("column").value);
+        document.getElementById('token').innerHTML = parser.row.token.asString();
 	  }
 	</script>
   </body>
