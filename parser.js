@@ -7,7 +7,15 @@ function CSVParser(aString)
 		for (var i = 0; i <= anInteger && this.hasNextRow(); i++)
 		{
 			this.nextRow();
-        }
+		}
+	};
+
+	this.gotoToken = function(anInteger)
+	{
+		for (var i = 0; i <= anInteger && this.hasNextToken(); i++)
+		{
+			this.nextToken();
+		}
 	};
 	
 	this.provideNewline = function(aString)

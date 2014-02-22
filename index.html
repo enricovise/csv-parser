@@ -56,7 +56,9 @@
         alert("Row [" + document.getElementById("row").value + "]");
 	    var pippo = new CSVParser();
         pippo.gotoRow(document.getElementById("row").value);
+        pippo.gotoToken(document.getElementById("column").value);
         alert("{" + pippo.row + "}");
+        alert("[" + pippo.token + "]");
         /*
 	    while (pippo.hasNextLine())
 	    {
