@@ -81,8 +81,7 @@ CSVParser.prototype.hasNextToken = function()
 
 CSVParser.prototype.nextToken = function()
 {
-	var result  = this.pattern.exec(this.row);
-	this.token = new Token(result[1]);
+	this.token = new Token(this.pattern.exec(this.row)[1]);
 };
 
 CSVParser.prototype.openFile = function(aString)
