@@ -1,7 +1,14 @@
 function Token(aString)
 {
 	this.value = aString;
+	this.normalize();
 }
+
+Token.prototype.normalize = function()
+{
+	this.value = ("\"" + this.value + "\"").replace(/""/g, "\"").match(
+			                                                      /"(.*)"/)[1];
+};
 
 Token.prototype.asString = function()
 {
@@ -50,11 +57,6 @@ CSVParser.prototype.provideNewline = function(aString)
 	return aString + (aString.match(/\n$/) ? "" : "\n");
 };
 
-CSVParser.prototype.pippo = function(aString)
-{
-	return aString.replace(/""/g, "\"");
-}
-
 CSVParser.prototype.nextRow = function()
 {
 	this.row = this.provideNewline(this.rowPattern.exec(this.file)[0]);
@@ -80,7 +82,7 @@ CSVParser.prototype.hasNextToken = function()
 CSVParser.prototype.nextToken = function()
 {
 	var result  = this.pattern.exec(this.row);
-	this.token = new Token(result[2] || result[1]);
+	this.token = new Token(result[1]);
 };
 
 CSVParser.prototype.openFile = function(aString)
