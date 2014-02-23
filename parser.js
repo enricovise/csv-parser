@@ -93,9 +93,9 @@ Row.getPattern = function()
 
 
 
-function CSVParser(aString)
+function CSVParser(fileString, separatorString)
 {
-	this.initialize(aString);
+	this.initialize(fileString, separatorString);
 }
 
 CSVParser.prototype.gotoRow = function(anInteger)
@@ -130,16 +130,11 @@ CSVParser.prototype.openFile = function(aString)
 	this.file=aString;
 };
 
-CSVParser.prototype.getSeparator = function()
+CSVParser.prototype.initialize = function(fileString, separatorString)
 {
-	return ";";
-};
-
-CSVParser.prototype.initialize = function(aString)
-{
-	this.separator = this.getSeparator();
+	this.separator = separatorString;
 	this.pattern = Row.getPattern();
-	this.openFile(aString);
+	this.openFile(fileString);
 };
 
 
