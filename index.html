@@ -24,14 +24,16 @@
   <body>
 	<h1>Test</h1>
 	<section>
+      Please, select your CSV file.
 	  <input type="file" id="files" name="files[]" />
 	</section>
 	<section>
 	  <pre id="text">None.</pre>
 	  <form>
-		Please specify row <input type="text" id="row" />
-		and column <input type="text" id="column" />.
-		Then <input type="button" value="Get" onclick="GetValue();" />.
+		Next, specify row <input type="text" id="row" />,
+		column <input type="text" id="column" /> and
+        separator <input type="text" id="separator" />.<br />
+		Then <input type="button" value="get" onclick="GetValue();" /> your token.
 	  </form>
 	</section>
 	<section>
@@ -64,7 +66,9 @@
 
 	  function GetValue()
 	  {
-	    var parser = new CSVParser(document.getElementById("text").innerHTML, ";");
+	    var parser = new CSVParser(
+                                   document.getElementById("text").innerHTML,
+                                   document.getElementById("separator").value);
         parser.gotoRow(document.getElementById("row").value);
         parser.row.gotoToken(document.getElementById("column").value);
         document.getElementById('token').innerHTML = parser.row.token.asString();
