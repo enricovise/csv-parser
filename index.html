@@ -64,7 +64,7 @@
 
 	  function GetValue()
 	  {
-	    var parser = new CSVParser();
+	    var parser = new CSVParser(document.getElementById("text").innerHTML);
         parser.gotoRow(document.getElementById("row").value);
         parser.row.gotoToken(document.getElementById("column").value);
         document.getElementById('token').innerHTML = parser.row.token.asString();

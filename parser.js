@@ -127,7 +127,7 @@ CSVParser.prototype.hasNextRow = function()
 
 CSVParser.prototype.openFile = function(aString)
 {
-	this.file=document.getElementById("text").innerHTML;
+	this.file=aString;
 };
 
 CSVParser.prototype.getSeparator = function()
