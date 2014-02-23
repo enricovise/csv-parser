@@ -1,8 +1,13 @@
 function Token(aString)
 {
-	this.value = !aString ? "" : 
-		("\"" + aString + "\"").replace(/""/g, "\"").match(/"(.*)"/)[1];
+	this.value = aString;
 }
+
+Token.prototype.normalize = function()
+{
+	return !this.value ? this : new Token(
+		("\"" + this.value + "\"").replace(/""/g, "\"").match(/"(.*)"/)[1]);
+};
 
 Token.prototype.asString = function()
 {
@@ -61,7 +66,7 @@ Row.prototype.gotoToken = function(anInteger)
 	{
 		var token = this.nextToken();
 	}
-	return token;
+	return token.normalize();
 };
 
 Row.prototype.hasNextToken = function()
