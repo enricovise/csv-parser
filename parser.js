@@ -117,16 +117,11 @@ CSVParser.prototype.hasNextRow = function()
 	return !row.isEmpty();
 };
 
-CSVParser.prototype.openFile = function(aString)
-{
-	this.file=aString;
-};
-
 CSVParser.prototype.initialize = function(fileString, separatorString)
 {
 	this.separator = separatorString;
 	this.pattern = Row.getPattern();
-	this.openFile(fileString);
+	this.file = fileString;
 };
 
 
