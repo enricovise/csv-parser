@@ -75,10 +75,11 @@
 
 	  function GetValue()
 	  {
-	    var parser = new CSVParser(
-                                   document.getElementById("text").innerHTML,
-                                   document.getElementById("separator").value);
-        var token = parser.gotoRow(document.getElementById("row").value).gotoToken(document.getElementById("column").value);
+        var token = new CSVParser(
+          document.getElementById("text").innerHTML,
+          document.getElementById("separator").value).gotoRow(
+          document.getElementById("row").value).gotoToken(
+          document.getElementById("column").value);
         document.getElementById('string-token').innerHTML = token.asString();
         document.getElementById('integer-token').innerHTML = token.asInteger();
         document.getElementById('double-token').innerHTML = token.asDouble();
