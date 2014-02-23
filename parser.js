@@ -1,17 +1,8 @@
 function Token(aString)
 {
-	this.value = aString;
-	this.normalize();
+	this.value = !aString ? "" : 
+		("\"" + aString + "\"").replace(/""/g, "\"").match(/"(.*)"/)[1];
 }
-
-Token.prototype.normalize = function()
-{
-	if (this.value)
-	{
-		this.value = ("\"" + this.value + "\"").replace(/""/g, "\"").match(
-		                                                           /"(.*)"/)[1];
-    }
-};
 
 Token.prototype.asString = function()
 {
