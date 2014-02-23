@@ -96,12 +96,12 @@ CSVParser.prototype.gotoRow = function(anInteger)
 {
 	for (var i = 0; i <= anInteger && this.hasNextRow(); i++)
 	{
-		var row = this.getNextRow();
+		var row = this.nextRow();
 	}
 	return row.normalize();
 };
 
-CSVParser.prototype.getNextRow = function()
+CSVParser.prototype.nextRow = function()
 {
 	return new Row(this.pattern.exec(this.file)[0], this.separator);
 };
@@ -109,7 +109,7 @@ CSVParser.prototype.getNextRow = function()
 CSVParser.prototype.hasNextRow = function()
 {
 	var lastIndexBackup = this.pattern.lastIndex;
-	var row = this.getNextRow();
+	var row = this.nextRow();
 	this.pattern.lastIndex = lastIndexBackup;
 	return !row.isEmpty();
 };
