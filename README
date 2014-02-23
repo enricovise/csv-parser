@@ -1,0 +1,5 @@
+CSV file reader, (can't use any libraries or language tokenizer) i.e.
+we want to see real parsing code. Should be able to read a file and ask
+for a given line and element. In addition you should be able to ask for
+an elements as an Integer / Double / String / Date (don't worry about
+the last one if you don't have enough time).
