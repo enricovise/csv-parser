@@ -120,12 +120,3 @@ CSVParser.prototype.hasNextRow = function()
 	this.pattern.lastIndex = lastIndexBackup;
 	return !row.isEmpty();
 };
-
-
-// TEST CASES
-// Sironi, Mario;x
-// "Verdi; Wagner";x
-// "Ettore ""Ted"" De Grazia";x
-// "Carlo ""Magno"";Bismarck";x
-// "Filippo il Bello; Giovanna la ""Pazza""";x
-// "Felipe l'""Hermoso"";Juana la ""Loca""";x
