@@ -59,8 +59,9 @@ Row.prototype.gotoToken = function(anInteger)
 {
 	for (var i = 0; i <= anInteger && this.hasNextToken(); i++)
 	{
-		this.nextToken();
+		var token = this.nextToken();
 	}
+	return token;
 };
 
 Row.prototype.hasNextToken = function()
@@ -73,7 +74,7 @@ Row.prototype.hasNextToken = function()
 
 Row.prototype.nextToken = function()
 {
-	this.token = new Token(this.pattern.exec(this.value)[1]);
+	return new Token(this.pattern.exec(this.value)[1]);
 };
 
 Row.getPattern = function()
@@ -95,18 +96,14 @@ CSVParser.prototype.gotoRow = function(anInteger)
 {
 	for (var i = 0; i <= anInteger && this.hasNextRow(); i++)
 	{
-		this.nextRow();
+		var row = this.getNextRow();
 	}
+	return row.normalize();
 };
 
 CSVParser.prototype.getNextRow = function()
 {
 	return new Row(this.pattern.exec(this.file)[0], this.separator);
-};
-
-CSVParser.prototype.nextRow = function()
-{
-	this.row = this.getNextRow().normalize();
 };
 
 CSVParser.prototype.hasNextRow = function()

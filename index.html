@@ -78,9 +78,7 @@
 	    var parser = new CSVParser(
                                    document.getElementById("text").innerHTML,
                                    document.getElementById("separator").value);
-        parser.gotoRow(document.getElementById("row").value);
-        parser.row.gotoToken(document.getElementById("column").value);
-        var token = parser.row.token;
+        var token = parser.gotoRow(document.getElementById("row").value).gotoToken(document.getElementById("column").value);
         document.getElementById('string-token').innerHTML = token.asString();
         document.getElementById('integer-token').innerHTML = token.asInteger();
         document.getElementById('double-token').innerHTML = token.asDouble();
