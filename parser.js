@@ -40,12 +40,14 @@ Token.getPattern = function(aString)
 function Row(valueString, separatorString)
 {
 	this.value = valueString;
+	this.separator = separatorString;
 	this.pattern = Token.getPattern(separatorString);
 }
 
 Row.prototype.normalize = function()
 {
-	this.value += (this.value.match(/\n$/) ? "" : "\n");
+	return new Row(this.value + (this.value.match(/\n$/) ? "" : "\n"),
+	               this.separator);
 };
 
 Row.prototype.isEmpty = function()
@@ -104,8 +106,7 @@ CSVParser.prototype.getNextRow = function()
 
 CSVParser.prototype.nextRow = function()
 {
-	this.row = this.getNextRow();
-	this.row.normalize();
+	this.row = this.getNextRow().normalize();
 };
 
 CSVParser.prototype.hasNextRow = function()
