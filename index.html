@@ -10,12 +10,12 @@
 	    background: #EBF4FA;
 	  }
 
-      #token:before {
+      pre:before {
         color: blue;
         content: "[";
       }
 
-      #token:after {
+      pre:after {
         color: red;
         content: "]";
       }
@@ -34,7 +34,7 @@
 	  <p><input type="file" id="files" name="files[]" /></p>
 	</section>
 	<section>
-	  <pre id="text">No file.</pre>
+	  <pre id="text"></pre>
 	  <form>
 		<p>Next, specify row <input type="text" id="row" />,
 		column <input type="text" id="column" /> and
@@ -42,10 +42,10 @@
 		<p>Then <input type="button" value="get" onclick="GetValue();" /> your token as...</p>
 	  </form>
       <table>
-        <tr><th>String:</th><td><pre id="string-token">None.</pre></td></tr>
-        <tr><th>Integer:</th><td><pre id="integer-token">None.</pre></td></tr>
-        <tr><th>Double:</th><td><pre id="double-token">None.</pre></td></tr>
-        <tr><th>Date:</th><td><pre id="date-token">None.</pre></td></tr>
+        <tr><th>String:</th><td><pre id="string-token"></pre></td></tr>
+        <tr><th>Integer:</th><td><pre id="integer-token"></pre></td></tr>
+        <tr><th>Double:</th><td><pre id="double-token"></pre></td></tr>
+        <tr><th>Date:</th><td><pre id="date-token"></pre></td></tr>
       </table>
 	</section>
 
