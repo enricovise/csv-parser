@@ -5,6 +5,7 @@
 	<meta charset="UTF-8" />
 	<style>
 	  pre {
+        margin: 0;
 	    padding: 1em;
 	    background: #EBF4FA;
 	  }
@@ -18,26 +19,34 @@
         color: red;
         content: "]";
       }
+
+      th {
+        font-weight: normal;
+        text-align: left;
+      }
 	</style>
 	<script src="parser.js"></script>
   </header>
   <body>
-	<h1>Test</h1>
+	<h1><abbr title="Comma-Separated Values">CSV</abbr> Parser</h1>
 	<section>
-      Please, select your CSV file.
-	  <input type="file" id="files" name="files[]" />
+      <p>Please, select a CSV file.</p>
+	  <p><input type="file" id="files" name="files[]" /></p>
 	</section>
 	<section>
-	  <pre id="text">None.</pre>
+	  <pre id="text">No file.</pre>
 	  <form>
-		Next, specify row <input type="text" id="row" />,
+		<p>Next, specify row <input type="text" id="row" />,
 		column <input type="text" id="column" /> and
-        separator <input type="text" id="separator" />.<br />
-		Then <input type="button" value="get" onclick="GetValue();" /> your token.
+        separator <input type="text" id="separator" />.</p>
+		<p>Then <input type="button" value="get" onclick="GetValue();" /> your token as...</p>
 	  </form>
-	</section>
-	<section>
-      <pre id="token">None.</pre>
+      <table>
+        <tr><th>String:</th><td><pre id="string-token">None.</pre></td></tr>
+        <tr><th>Integer:</th><td><pre id="integer-token">None.</pre></td></tr>
+        <tr><th>Double:</th><td><pre id="double-token">None.</pre></td></tr>
+        <tr><th>Date:</th><td><pre id="date-token">None.</pre></td></tr>
+      </table>
 	</section>
 
 	<script>
@@ -71,7 +80,11 @@
                                    document.getElementById("separator").value);
         parser.gotoRow(document.getElementById("row").value);
         parser.row.gotoToken(document.getElementById("column").value);
-        document.getElementById('token').innerHTML = parser.row.token.asString();
+        var token = parser.row.token;
+        document.getElementById('string-token').innerHTML = token.asString();
+        document.getElementById('integer-token').innerHTML = token.asInteger();
+        document.getElementById('double-token').innerHTML = token.asDouble();
+        document.getElementById('date-token').innerHTML = token.asDate();
 	  }
 	</script>
   </body>
