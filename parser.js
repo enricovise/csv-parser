@@ -49,13 +49,17 @@ Token.getPattern = function(aString)
 function Row(valueString, separatorString)
 {
 	this.value = valueString;
-	this.normalize();
 	this.pattern = Token.getPattern(separatorString);
 }
 
 Row.prototype.normalize = function()
 {
 	this.value += (this.value.match(/\n$/) ? "" : "\n");
+};
+
+Row.prototype.isEmpty = function()
+{
+	return this.value == "";
 };
 
 Row.prototype.gotoToken = function(anInteger)
@@ -110,6 +114,7 @@ CSVParser.prototype.getNextRow = function()
 CSVParser.prototype.nextRow = function()
 {
 	this.row = this.getNextRow();
+	this.row.normalize();
 };
 
 CSVParser.prototype.hasNextRow = function()
@@ -117,7 +122,7 @@ CSVParser.prototype.hasNextRow = function()
 	var lastIndexBackup = this.pattern.lastIndex;
 	var row = this.getNextRow();
 	this.pattern.lastIndex = lastIndexBackup;
-	return row.value != "";
+	return !row.isEmpty();
 };
 
 CSVParser.prototype.openFile = function(aString)
